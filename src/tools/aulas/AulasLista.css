@@ -1,0 +1,156 @@
+.aula-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  gap: 1.5rem;
+  align-items: start; /* Evita que cards estiquem para ficar do mesmo tamanho */
+}
+
+.aula-card {
+  display: flex;
+  border: 1px solid var(--graystroke);
+  border-radius: 0.8rem;
+  background: #fff;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.aula-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Tags (Card Simples) */
+.tags-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.tag {
+  background-color: var(--graystroke);
+  padding: 0.2rem 0.6rem;
+  border-radius: 99rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.aula-card-titulo {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.aula-card-filme,
+.aula-card-filme-public,
+.aula-card-filme-vazio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.aula-card-filme-public {
+  margin-bottom: 1rem;
+}
+
+/* --- ESTRUTURA DE AGRUPAMENTO (PÚBLICO -> DURAÇÃO) --- */
+.group-variations-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  border-top: 1px solid var(--graystroke);
+  padding-top: 1rem;
+  gap: 1rem;
+}
+
+.group-label {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 0.8rem;
+}
+
+.publico.tag-block {
+  margin-bottom: 1rem;
+}
+
+.publico-block:last-child {
+  margin-bottom: 0;
+}
+
+.publico-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.durations-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap; /* Added for mobile */
+}
+
+#duration-badge {
+  background-color: var(--purple1);
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  font-family: monospace;
+  transition: all 0.2s;
+  color: white;
+}
+
+/* Botão Padrão (Card Simples) */
+.aula-card-actions {
+  margin-top: auto;
+}
+
+.btn-ficha {
+  background-color: var(--purple1);
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-ficha:hover {
+  background-color: #382f6b;
+}
+
+.empty-state-box {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  .aula-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .aula-info {
+    padding: 1rem;
+  }
+
+  .durations-list {
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .publico-title {
+    word-break: break-word;
+  }
+}

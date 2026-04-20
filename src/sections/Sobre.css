@@ -1,0 +1,89 @@
+.sobre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sobre-text {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.sobre-title {
+  display: flex;
+  padding-bottom: 2rem;
+}
+
+.sobre-paragraph {
+  font-size: 2rem;
+  color: var(--grayparagraph);
+  padding-bottom: 2rem;
+}
+
+.sobre-btn {
+  display: flex;
+}
+
+.sobre-extra {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 50%;
+}
+
+.sobre-extra h3 {
+  font-size: 1.5rem;
+  font-family: "Inter";
+  padding-bottom: 0.5rem;
+}
+
+.sobre-extra p {
+  font-size: 1.5rem;
+}
+
+.extra {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.extra-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.extra-icon {
+  font-size: 3.8rem;
+  color: var(--purple2);
+}
+
+@media (max-width: 768px) {
+  .sobre {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .sobre-text, .sobre-extra {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .sobre-title {
+    justify-content: center;
+  }
+
+  .sobre-paragraph {
+    font-size: 1.2rem;
+  }
+
+  .sobre-extra h3, .sobre-extra p {
+    font-size: 1.1rem;
+  }
+
+  .extra {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,0 +1,63 @@
+.cards-grid-horizontal {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.planejamento-text {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.planejamento-title {
+  display: flex;
+  padding-bottom: 2rem;
+}
+
+.planejamento-paragraph {
+  font-size: 2rem;
+  color: var(--grayparagraph);
+  padding-bottom: 2rem;
+}
+
+#tag-publico {
+  background-color: rgb(252, 239, 185);
+}
+.tag-duracao {
+  background-color: rgb(209, 209, 255);
+}
+
+#tag-50 {
+  background-color: rgb(255, 207, 207);
+}
+
+#tag-90 {
+  background-color: rgb(221, 221, 255);
+}
+
+#tag-residentes {
+  background-color: rgb(255, 248, 208);
+}
+#tag-academicos {
+  background-color: rgb(212, 255, 208);
+}
+#tag-profissionais {
+  background-color: rgb(255, 197, 226);
+}
+
+@media (max-width: 768px) {
+  .cards-grid-horizontal {
+    grid-template-columns: 1fr;
+  }
+
+  .planejamento-text {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+
+  .planejamento-paragraph {
+    font-size: 1.2rem;
+  }
+}

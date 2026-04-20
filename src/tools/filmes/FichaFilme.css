@@ -1,0 +1,472 @@
+/* O Overlay cobre a tela inteira */
+.ficha-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.ficha-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.ficha-container {
+  display: flex;
+  width: 100%;
+  margin: 0 5rem;
+  height: 90vh;
+  background: var(--background1);
+  border-radius: 1rem;
+  overflow: hidden; /* Important */
+  position: relative;
+  flex-direction: column;
+  animation: 0.3s ease-out;
+}
+
+/* Header Escuro */
+.scene-counter {
+  background: var(--graystroke);
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.4rem;
+  font-weight: 500;
+}
+
+.ficha-header {
+  display: flex;
+  background-color: var(--background1);
+  padding: 1.5rem;
+  position: relative;
+  border-bottom: 1px solid var(--graystroke);
+}
+
+.header-content {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.poster-container {
+  max-width: 8rem;
+  display: flex;
+}
+
+.poster-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.poster-placeholder {
+  background: #eee;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+
+.title-cenas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header-info h1 {
+  font-size: 2rem;
+}
+
+.meta-line {
+  color: var(--grayparagraph);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.header-info p {
+  text-align: justify;
+
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
+}
+
+.carousel-wrapper {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Hides the scrollbar and next slides */
+  background: #fdfdfd;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-50%) scale(1.1);
+  border-color: #bbb;
+}
+
+.nav-btn.prev {
+  left: 15px;
+}
+
+.nav-btn.next {
+  right: 15px;
+}
+
+/* --- CAROUSEL CONTAINER --- */
+.cenas-carousel {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0;
+  overflow-x: auto;
+  padding: 0;
+  align-items: stretch;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+.cenas-carousel::-webkit-scrollbar {
+  display: none;
+}
+/* --- SCENE SLIDE --- */
+.cena-slide {
+  display: flex;
+  padding: 3rem 5rem;
+  flex: 0 0 100%;
+  box-sizing: border-box;
+}
+
+.slide-left {
+  display: flex;
+  flex-direction: column;
+  padding-right: 2rem;
+  border-right: solid 1px var(--graystroke);
+}
+
+.slide-right {
+  display: flex;
+  flex-direction: column;
+  padding-left: 2rem;
+}
+
+.cena-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.time-pill {
+  background: var(--graystroke);
+  padding: 0.2rem 0.8rem;
+  border-radius: 99rem;
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  align-items: center;
+}
+
+.cena-descricao {
+  padding-bottom: 1rem;
+}
+
+.cena-footer-blocks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.block-azul,
+.block-cinza,
+.block-amarelo {
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.block-azul {
+  background-color: #f0f4ff;
+}
+.block-amarelo {
+  background-color: #fffbe1;
+}
+
+.block-cinza {
+  background-color: var(--background1);
+}
+
+.block-azul h4,
+.block-cinza h4,
+.block-amarelo h4 {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.tags-cloud {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.keywords-cloud {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.tema-pill {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 0.2rem 0.5rem;
+  border-radius: 99rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.keyword-pill {
+  background: var(--graystroke);
+  color: var(--grayparagraph);
+  padding: 0.2rem 0.5rem;
+  border-radius: 99rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Stack details vertically in carousel */
+.cena-grid-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  gap: 0.5rem;
+  max-width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  background: var(--background1);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--graystroke);
+}
+
+.detail-box li,
+.detail-box p {
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
+}
+
+.detail-box h3 {
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .ficha-container {
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+.ficha-header-btns {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Fix overlapping by resetting absolute position */
+.ficha-header-btns .btn-close {
+  position: static;
+}
+
+.btn-print {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--purple2) !important;
+  color: white !important;
+  font-weight: 500;
+}
+
+.btn-print:hover {
+  background: var(--purple3) !important;
+}
+
+@media print {
+  @page {
+    margin: 1cm;
+  }
+
+  .btn-print,
+  .btn-close,
+  .nav-btn,
+  .ficha-header-btns {
+    display: none !important;
+  }
+
+  body, html {
+    background: white !important;
+  }
+
+  .ficha-overlay {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    background: white !important;
+    backdrop-filter: none !important;
+    display: block !important;
+    z-index: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  .ficha-container {
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    width: 100% !important;
+    background: white !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    display: block !important;
+  }
+
+  .ficha-header {
+    border-bottom: 2px solid #000;
+    margin-bottom: 2rem;
+    padding: 0 0 1.5rem 0 !important;
+  }
+
+  .poster-container {
+    max-width: 12rem !important; /* Larger for printing */
+  }
+
+  .header-info h1 {
+    color: #000 !important;
+    font-size: 2.5rem !important;
+  }
+
+  .meta-line {
+    color: #333 !important;
+  }
+
+  .block-azul,
+  .block-amarelo,
+  .block-cinza,
+  .detail-box {
+    background: none !important;
+    border: none !important;
+    border-left: 3px solid #000 !important;
+    padding: 5px 0 5px 15px !important;
+    margin-bottom: 20px !important;
+    page-break-inside: avoid;
+  }
+
+  .cenas-carousel {
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  .cena-slide {
+    display: block !important;
+    padding: 1.5rem 0 !important;
+    page-break-inside: avoid;
+    border-bottom: 2px dashed #ccc !important;
+    height: auto !important;
+  }
+
+  .slide-left,
+  .slide-right {
+    padding: 0 !important;
+    border: none !important;
+    width: 100% !important;
+    display: block !important;
+  }
+
+  .cena-header {
+    display: flex !important;
+    align-items: baseline !important;
+    border-bottom: 1px solid #000 !important;
+    margin-bottom: 15px !important;
+    padding-bottom: 5px !important;
+  }
+
+  .cena-header h2 {
+    color: #000 !important;
+    margin: 0 !important;
+  }
+
+  .time-pill {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    font-weight: bold !important;
+    font-size: 1.2rem !important;
+    margin-left: 10px !important;
+    color: #000 !important;
+  }
+
+  .tema-pill,
+  .keyword-pill {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-right: 8px !important;
+    font-weight: bold !important;
+    color: #000 !important;
+  }
+
+  .sinopse, .cena-descricao, p {
+    color: #000 !important;
+    font-size: 1.1rem !important;
+  }
+}

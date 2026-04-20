@@ -1,0 +1,15 @@
+# TELAPSI_CONTEXT_INDEX
+
+## LOCAL_RESOURCES
+- Master Specs: ./SPECS.md  <-- Vision, Data Structure (Movies/Lessons), and Screen Flow
+- Architecture: ./ARCHITECTURE.md  <-- Component Tree, UI/UX Layout Constraints
+- Project Plan: ./PLAN.md  <-- System State and Execution Queue
+- Project Log: ./CHANGELOG.md  <-- Discovery, Design, and Iteration History
+- Agent Protocols: ./SQUAD_PROTOCOLS.md  <-- Agent Roles (@ask, @plan, @code, @debug)
+
+## STACK_DOCUMENTATION
+- React: https://react.dev/
+- JavaScript (ES6+): https://developer.mozilla.org/en-US/docs/Web/JavaScript
+- Tailwind CSS: https://tailwindcss.com/docs
+- Firebase Web: https://firebase.google.com/docs/web/setup
+- Mermaid: https://mermaid.js.org

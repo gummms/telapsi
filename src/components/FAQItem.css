@@ -1,0 +1,30 @@
+.FAQ-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  margin: 1rem 0;
+  border-bottom: 1px solid var(--graystroke);
+}
+
+.FAQ-question-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.FAQ-caret {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  color: var(--purple2);
+  text-align: center;
+  transition: 0.5s;
+}
+
+.FAQ-answer {
+  padding: 0.5rem 0 1rem 2.5rem;
+  color: #555;
+  line-height: 1.6;
+}

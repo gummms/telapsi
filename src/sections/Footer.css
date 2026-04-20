@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem var(--padding-body);
+  border-top: 1px solid var(--graystroke);
+  background-color: var(--background2);
+  box-sizing: border-box;
+}
+
+.footer p {
+  font-size: 0.8rem;
+  color: var(--grayparagraph);
+  overflow-wrap: break-word;
+}
+
+#disclaimer-text {
+  font-size: 0.6rem;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+  }
+}

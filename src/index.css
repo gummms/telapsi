@@ -1,0 +1,63 @@
+:root {
+  --background1: #f9fafb;
+  --background2: #fefefe;
+  --purple1: #3730a3;
+  --purple2: #4338ca;
+  --purple3: #4f46e5;
+  --purple-light: #eef2ff;
+  --black: #111827;
+  --graystroke: #e5e7eb;
+  --grayparagraph: #4b5563;
+  --grayplaceholder: #9ca3af;
+  --padding-body: 10rem;
+  --glass: rgba(255, 255, 255, 0.7);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --radius-lg: 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Libre Baskerville", sans-serif;
+}
+
+body {
+  background-color: var(--background1);
+  min-width: 100vw;
+  color: var(--black);
+  overflow-x: hidden;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Libre Baskerville";
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --padding-body: 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --padding-body: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --padding-body: 1rem;
+  }
+}

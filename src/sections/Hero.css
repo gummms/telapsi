@@ -1,0 +1,88 @@
+#hero {
+  max-width: 100vw;
+  position: sticky;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-image: linear-gradient(to right, var(--background1) 55%, rgba(0, 0, 0, 0) 70%);
+}
+
+.hero-text {
+  padding-left: var(--padding-body);
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+}
+
+.hero-title {
+  display: flex;
+  padding-bottom: 2rem;
+}
+
+.hero-title h1,
+.hero-title span {
+  font-family: "Libre Baskerville";
+  font-size: 3rem;
+  color: var(--purple1);
+}
+
+.hero-title span {
+  color: var(--purple2);
+}
+
+.hero-paragraph {
+  font-size: 1.5rem;
+  color: var(--black);
+  padding-bottom: 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.hero img {
+  width: 50%;
+  z-index: -1;
+}
+
+@media (max-width: 1024px) {
+  .hero-title h1, .hero-title span {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    background-image: linear-gradient(to bottom, var(--background1) 60%, rgba(0, 0, 0, 0) 90%);
+  }
+
+  .hero-text {
+    width: 100%;
+    padding: 4rem var(--padding-body);
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero-title {
+    justify-content: center;
+  }
+
+  .hero-title h1, .hero-title span {
+    font-size: 2.5rem;
+    word-break: break-word;
+  }
+
+  .hero-paragraph {
+    font-size: 1.2rem;
+  }
+
+  .hero img {
+    width: 100%;
+    margin-top: 0;
+  }
+}

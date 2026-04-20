@@ -1,0 +1,76 @@
+.Login {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.LoginCard {
+  display: flex;
+  justify-content: space-between;
+  height: 18rem;
+  margin-top: calc(50vh/2);
+  border: 2px solid var(--graystroke);
+  border-radius: 1rem;
+  background-image: linear-gradient(
+    to right,
+    var(--background1) 50%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  overflow: hidden;
+}
+
+.LoginCard h2 {
+  font-size: 2rem;
+  color: var(--purple1);
+  margin-bottom: 3rem;
+}
+
+.LoginCard h3 {
+  font-weight: normal;
+  margin-bottom: 2rem;
+}
+
+.LoginInput {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0 2rem 4rem;
+}
+
+.LoginImg {
+  display: flex;
+  z-index: -1;
+}
+
+.Login img {
+  max-height: 100%;
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .LoginCard {
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+    margin-top: 2rem;
+    background-image: none;
+    background-color: var(--background1);
+  }
+
+  .LoginInput {
+    margin: 2rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .LoginCard h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .Login img {
+    width: 100%;
+    margin-top: 0;
+  }
+}

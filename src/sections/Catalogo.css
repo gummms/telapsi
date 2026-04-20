@@ -1,0 +1,48 @@
+.tool-header-publico {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.tool-header-publico a {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.cards-grid-horizontal {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.link-completo {
+  color: var(--purple2);
+}
+
+.link-completo span {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .tool-header-publico {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .cards-grid-horizontal {
+    grid-template-columns: 1fr;
+  }
+
+  .card-filme-horizontal {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .card-poster {
+    width: 100%;
+    height: 200px;
+  }
+}

@@ -1,0 +1,108 @@
+.menu-navbar {
+  width: 100%;
+  background-color: var(--background2);
+  border-bottom: 1px solid var(--graystroke);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0.8rem 0;
+}
+
+.menu-navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 var(--padding-body);
+  box-sizing: border-box;
+}
+
+.menu-brand {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.menu-subtitle {
+  font-size: 0.85rem;
+  color: var(--purple2);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: rgba(111, 66, 193, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.menu-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.menu-toggle-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--gray600);
+  cursor: pointer;
+}
+
+/* Language Switcher styles shifted to global Buttons.css */
+
+
+#btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--purple1);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+#btn-logout:hover {
+  background-color: var(--purple1);
+}
+
+@media (max-width: 768px) {
+  .menu-toggle-btn {
+    display: block;
+  }
+
+  .menu-links {
+    position: fixed;
+    top: 70px; /* navbar height */
+    left: 0;
+    width: 100%;
+    background-color: var(--background2);
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--graystroke);
+    transform: translateY(-150%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
+  }
+
+  .menu-links.open {
+    transform: translateY(0);
+  }
+
+  .menu-overlay {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 70px);
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+  }
+
+  .menu-subtitle {
+    display: none; /* Hide subtitle on very small mobile if space is tight, or keep it */
+  }
+}
