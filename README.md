@@ -2,8 +2,6 @@
 
 ### [Click here for live preview!](https://telapsi-lit-2025.web.app)
 
-> ### ⚠️ This is currently a **WIP** project for Laboratório de Inovações Tecnológicas (LIT).
-
 ---
 
 ## Overview
