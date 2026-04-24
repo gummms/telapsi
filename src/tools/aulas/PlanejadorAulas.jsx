@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../components/T";
 import { db } from "../../services/firebaseConfig";
 import { collection, getDocs, doc, updateDoc, getDoc } from "firebase/firestore";
 import { useAuth } from "../../context/useAuth";
@@ -19,7 +19,6 @@ import "./PlanejadorAulas.css";
 import "../../components/Buttons.css";
 
 const PlanejadorAulas = ({ onBack, editingData }) => {
-  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const { addToast } = useToast();
   const isEditing = !!editingData;
@@ -97,13 +96,13 @@ const PlanejadorAulas = ({ onBack, editingData }) => {
         setFilmesDisponiveis(fData);
       } catch (err) {
         console.error("Erro ao carregar filmes:", err);
-        addToast(t("planner.alert_error_load"), "error");
+        addToast("Erro ao carregar filmes disponíveis.", "error");
       } finally {
         setLoadingFilmes(false);
       }
     };
     loadFilmes();
-  }, [t, addToast]);
+  }, [addToast]);
 
   useEffect(() => {
     if (!selectedFilmeId) {
@@ -188,7 +187,7 @@ const PlanejadorAulas = ({ onBack, editingData }) => {
 
   const handleSalvar = async () => {
     if (!aula.titulo) {
-      addToast(t("planner.alert_title"), "error");
+      addToast("Dê um título para a aula.", "error");
       return;
     }
     setSaving(true);
@@ -217,15 +216,15 @@ const PlanejadorAulas = ({ onBack, editingData }) => {
                 ? "Vários Filmes"
                 : cenasSelecionadas[0]?.filmeTitulo || "",
         });
-        addToast(t("planner.alert_success"), "success");
+        addToast("Aula planejada com sucesso!", "success");
       } else {
         await salvarAula(aula, cenasSelecionadas, currentUser.uid);
-        addToast(t("planner.alert_success"), "success");
+        addToast("Aula planejada com sucesso!", "success");
       }
       if (onBack) onBack();
     } catch (error) {
       console.error("Erro ao salvar aula:", error);
-      addToast(t("planner.alert_error"), "error");
+      addToast("Erro ao salvar. Tente novamente.", "error");
     } finally {
       setSaving(false);
     }
@@ -238,10 +237,10 @@ const PlanejadorAulas = ({ onBack, editingData }) => {
           <i>
             <Icones icone="fa-chevron-left" />
           </i>
-          <p>{t("planner.back_to_lessons")}</p>
+          <p><T>Voltar para aulas</T></p>
         </ButtonMain>
-        <h2>{t("planner.main_title")}</h2>
-        <p>{t("planner.description")}</p>
+        <h2><T>Planejador de Aulas</T></h2>
+        <p><T>Planeje e registre aulas baseadas em filmes.</T></p>
       </header>
 
       <div className="planejador-form">
@@ -277,9 +276,9 @@ const PlanejadorAulas = ({ onBack, editingData }) => {
         />
 
         <section className="form-section">
-          <h3>{t("planner.technical_summary")}</h3>
+          <h3><T>Handout / Resumo Técnico</T></h3>
           <p style={{ fontSize: "0.9rem", color: "var(--grayparagraph)", marginBottom: "1.5rem" }}>
-            {t("planner.technical_summary_desc")}
+            <T>Preencha até 6 pontos principais (conceitos, diagnósticos, instrumentos):</T>
           </p>
           <div className="form-column">
             {aula.resumoTecnico.map((item, index) => (
@@ -291,7 +290,7 @@ const PlanejadorAulas = ({ onBack, editingData }) => {
                     onChange={(e) =>
                       handleArrayChange("resumoTecnico", index, e.target.value)
                     }
-                    placeholder={`${t("planner.point_placeholder")} ${index + 1}`}
+                    placeholder={`Ponto chave ${index + 1}`}
                   />
                 </div>
               </div>
@@ -301,7 +300,7 @@ const PlanejadorAulas = ({ onBack, editingData }) => {
 
         <div className="form-footer-actions">
           <ButtonMain className="btn" onClick={onBack} disabled={saving}>
-            {t("planner.cancel")}
+            <T>Cancelar</T>
           </ButtonMain>
           <ButtonMain
             className="btn"
@@ -314,12 +313,12 @@ const PlanejadorAulas = ({ onBack, editingData }) => {
                 <i className="fa-spin" style={{ marginRight: '8px' }}>
                   <Icones icone="fa-spinner" />
                 </i>
-                {t("planner.saving")}
+                <T>Salvando...</T>
               </>
             ) : isEditing ? (
               "EDITAR"
             ) : (
-              t("planner.save")
+              <T>Salvar Planejamento</T>
             )}
           </ButtonMain>
         </div>

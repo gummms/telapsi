@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
   gap: 1.5rem;
-  align-items: start; /* Evita que cards estiquem para ficar do mesmo tamanho */
+  align-items: stretch;
 }
 
 .aula-card {
@@ -13,6 +13,7 @@
   transition: all 0.2s;
   position: relative;
   overflow: hidden;
+  height: 100%;
 }
 
 .aula-info {

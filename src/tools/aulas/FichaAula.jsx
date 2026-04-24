@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../components/T";
 import { db } from "../../services/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
@@ -10,7 +10,6 @@ import "../filmes/FichaFilme.css";
 import "./FichaAula.css";
 
 const FichaAula = ({ aulaId, onClose }) => {
-  const { t } = useTranslation();
   const [aula, setAula] = useState(null);
   const [filmeDetalhes, setFilmeDetalhes] = useState(null);
   const [cenasDetalhadas, setCenasDetalhadas] = useState([]);
@@ -42,7 +41,7 @@ const FichaAula = ({ aulaId, onClose }) => {
                 ...cenaSnap.data(),
                 nomeFilme: filmeSnap.exists()
                   ? filmeSnap.data().titulo
-                  : t("lesson_sheet.unknown_movie"),
+                  : "Filme desconhecido",
               };
             }
             return null;
@@ -56,7 +55,7 @@ const FichaAula = ({ aulaId, onClose }) => {
           aulaData.cenasIds.length > 0
         ) {
           const fSnap = await getDoc(doc(db, "filmes", aulaData.filmeId));
-          let tituloFilme = t("lesson_sheet.base_movie");
+          let tituloFilme = "Filme Base";
           if (fSnap.exists()) {
             setFilmeDetalhes(fSnap.data());
             tituloFilme = fSnap.data().titulo;
@@ -84,17 +83,17 @@ const FichaAula = ({ aulaId, onClose }) => {
       }
     };
     fetchData();
-  }, [aulaId, t]);
+  }, [aulaId]);
 
   const handleOverlayClick = (e) => {
     if (e.target.className === "ficha-overlay") onClose();
   };
 
   const renderTextWithLines = (text) => {
-    if (!text) return t("lesson_sheet.not_filled");
+    if (!text) return "Não preenchido.";
     return text.split("\n").map((str, index) => (
       <span key={index}>
-        {str}
+        <T>{str}</T>
         <br />
       </span>
     ));
@@ -102,9 +101,9 @@ const FichaAula = ({ aulaId, onClose }) => {
 
   const renderList = (items, type = "ul") => {
     if (typeof items === "string") return <p>{renderTextWithLines(items)}</p>;
-    if (!items || !Array.isArray(items)) return <p>{t("lesson_sheet.not_filled")}</p>;
+    if (!items || !Array.isArray(items)) return <p>Não preenchido.</p>;
     const validItems = items.filter((item) => item && item.trim() !== "");
-    if (validItems.length === 0) return <p>{t("lesson_sheet.not_filled")}</p>;
+    if (validItems.length === 0) return <p>Não preenchido.</p>;
 
     const listStyle1 = { marginTop: ".5rem" };
     const listStyle2 = { padding: "0", marginLeft: "1rem", marginTop: ".5rem" };
@@ -116,7 +115,7 @@ const FichaAula = ({ aulaId, onClose }) => {
         <ol style={listStyle1}>
           {validItems.map((item, idx) => (
             <li key={idx} style={liStyle1}>
-              {item}
+              <T>{item}</T>
             </li>
           ))}
         </ol>
@@ -126,7 +125,7 @@ const FichaAula = ({ aulaId, onClose }) => {
       <ul style={listStyle2}>
         {validItems.map((item, idx) => (
           <li key={idx} style={liStyle2}>
-            • {item}
+            • <T>{item}</T>
           </li>
         ))}
       </ul>
@@ -144,7 +143,7 @@ const FichaAula = ({ aulaId, onClose }) => {
         <header className="ficha-header header-aula">
           <div className="aula-header-content">
             <div className="title-pdf">
-              <h1>{aula.titulo}</h1>
+              <h1><T>{aula.titulo}</T></h1>
               <ButtonMain
                 className="btn"
                 id="btn-print"
@@ -153,7 +152,7 @@ const FichaAula = ({ aulaId, onClose }) => {
                 <i>
                   <Icones icone="fa-print" />
                 </i>
-                {t("lesson_sheet.print")}
+                <T>Imprimir / PDF</T>
               </ButtonMain>
             </div>
             <ButtonMain className="btn-close" onClick={onClose}>
@@ -163,23 +162,23 @@ const FichaAula = ({ aulaId, onClose }) => {
             </ButtonMain>
             <div className="aula-meta-grid">
               <div className="meta-item">
-                <span className="label">{t("lesson_sheet.audience")}</span>
-                <span className="value">{aula.publico}</span>
+                <span className="label"><T>Público Alvo</T></span>
+                <span className="value"><T>{aula.publico}</T></span>
               </div>
               <div className="meta-item">
-                <span className="label">{t("lesson_sheet.duration")}</span>
+                <span className="label"><T>Duração</T></span>
                 <span className="value">{aula.duracao} min</span>
               </div>
 
               {aula.filmesIds && aula.filmesIds.length > 1 ? (
                 <div className="meta-item">
-                  <span className="label">{t("lesson_sheet.medias")}</span>
-                  <span className="value">{t("lesson_sheet.multi_movies")}</span>
+                  <span className="label"><T>Mídias</T></span>
+                  <span className="value"><T>Múltiplos Filmes</T></span>
                 </div>
               ) : filmeDetalhes ? (
                 <div className="meta-item">
-                  <span className="label">{t("lesson_sheet.base_movie")}</span>
-                  <span className="value">{filmeDetalhes.titulo}</span>
+                  <span className="label"><T>Filme Base</T></span>
+                  <span className="value"><T>{filmeDetalhes.titulo}</T></span>
                 </div>
               ) : null}
             </div>
@@ -189,7 +188,7 @@ const FichaAula = ({ aulaId, onClose }) => {
         <div className="aula-body">
           <section className="aula-section">
             <h3>
-              <i className="fa fa-bullseye"></i> {t("lesson_sheet.objectives")}
+              <i className="fa fa-bullseye"></i> <T>Objetivos Gerais</T>
             </h3>
             <div className="text-block-content">
               {renderList(aula.objetivos, "ul")}
@@ -197,7 +196,7 @@ const FichaAula = ({ aulaId, onClose }) => {
           </section>
 
           <section className="aula-section">
-            <h3>{t("lesson_sheet.methodology")}</h3>
+            <h3><T>Roteiro Metodológico</T></h3>
 
             {isMetodologiaArray ? (
               aula.metodologia.map((etapa, idx) => {
@@ -210,7 +209,7 @@ const FichaAula = ({ aulaId, onClose }) => {
                   <div className="method-step" key={idx}>
                     <div className="title-time">
                       <h4>
-                        {idx + 1}. {etapa.titulo}{" "}
+                        {idx + 1}. <T>{etapa.titulo}</T>{" "}
                       </h4>
                       <h4 id="time">
                         {" "}
@@ -221,13 +220,13 @@ const FichaAula = ({ aulaId, onClose }) => {
                       <ul style={{ paddingLeft: "1rem", marginTop: ".2rem" }}>
                         {topicosValidos.map((t, i) => (
                           <li key={i} style={{ color: "var(--grayparagraph)" }}>
-                            • {t}
+                            • <T>{t}</T>
                           </li>
                         ))}
                       </ul>
                     ) : (
                       <p style={{ fontStyle: "italic", color: "#888" }}>
-                        {t("lesson_sheet.no_topics")}
+                        Sem tópicos descritos.
                       </p>
                     )}
                   </div>
@@ -235,7 +234,7 @@ const FichaAula = ({ aulaId, onClose }) => {
               })
             ) : (
               <div className="method-step">
-                <h4>{t("lesson_sheet.methodology")}</h4>
+                <h4><T>Roteiro Metodológico</T></h4>
                 <p>{renderTextWithLines(aula.metodologia?.introducao)}</p>
                 <p>{renderTextWithLines(aula.metodologia?.exibicao)}</p>
                 <p>{renderTextWithLines(aula.metodologia?.atividade)}</p>
@@ -246,7 +245,7 @@ const FichaAula = ({ aulaId, onClose }) => {
             {cenasDetalhadas.length > 0 && (
               <div className="embedded-cenas">
                 <h5>
-                  <i className="fa fa-film"></i> {t("lesson_sheet.selected_scenes")}
+                  <i className="fa fa-film"></i> <T>Cenas Selecionadas para Exibição:</T>
                 </h5>
                 <ul>
                   {cenasDetalhadas.map((cena, idx) => (
@@ -260,13 +259,13 @@ const FichaAula = ({ aulaId, onClose }) => {
                           fontWeight: "bold",
                         }}
                       >
-                        {cena.nomeFilme}
+                        <T>{cena.nomeFilme}</T>
                       </div>
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <span className="time">{cena.minutagem}</span>
-                        <strong>{cena.titulo}</strong>
+                        <strong><T>{cena.titulo}</T></strong>
                       </div>
-                      <p className="cena-desc-mini">{cena.descricao}</p>
+                      <p className="cena-desc-mini"><T>{cena.descricao}</T></p>
                     </li>
                   ))}
                 </ul>
@@ -277,7 +276,7 @@ const FichaAula = ({ aulaId, onClose }) => {
           {aula.dinamica && (
             <section className="sidebar-card">
               <h3>
-                <i className="fa fa-users"></i> {t("lesson_sheet.suggested_dynamics")}
+                <i className="fa fa-users"></i> <T>Dinâmica Sugerida</T>
               </h3>
               <div className="method-step">
                 <p>{renderTextWithLines(aula.dinamica)}</p>
@@ -287,7 +286,7 @@ const FichaAula = ({ aulaId, onClose }) => {
 
           <section className="sidebar-card">
             <h3>
-              <i className="fa fa-question-circle"></i> {t("lesson_sheet.guide_questions")}
+              <i className="fa fa-question-circle"></i> <T>Perguntas-guia</T>
             </h3>
             <div className="method-step">
               {renderList(aula.perguntasGuia, "ol")}
@@ -295,7 +294,7 @@ const FichaAula = ({ aulaId, onClose }) => {
           </section>
 
           <div className="sidebar-card">
-            <h3>{t("lesson_sheet.technical_summary")}</h3>
+            <h3><T>Handout / Resumo Técnico</T></h3>
             <div className="tech-note">
               {renderList(aula.resumoTecnico, "ul")}
             </div>

@@ -1,21 +1,19 @@
 import { memo } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../../components/T";
 
 const MetodologiaForm = memo(({ metodologia, onStructChange }) => {
-  const { t } = useTranslation();
-
   return (
     <section className="form-section">
-      <h3>{t("planner.methodology")}</h3>
+      <h3><T>Roteiro Metodológico (Passo a Passo)</T></h3>
       <p style={{ fontSize: "0.9rem", color: "var(--grayparagraph)", marginBottom: "1.5rem" }}>
-        {t("planner.define_steps")}
+        <T>Defina até 5 etapas para sua aula.</T>
       </p>
 
       {metodologia.map((etapa, index) => (
         <div key={`etapa-${index}`} className="metodologia-etapa">
           <div className="form-row">
             <div className="form-group flex-grow">
-              <label id="label-input">{t("planner.step_title")} {index + 1}</label>
+              <label id="label-input"><T>Título da Etapa</T> {index + 1}</label>
               <input
                 id="text-input"
                 className="bold"
@@ -23,11 +21,11 @@ const MetodologiaForm = memo(({ metodologia, onStructChange }) => {
                 onChange={(e) =>
                   onStructChange(index, "titulo", e.target.value)
                 }
-                placeholder={t("planner.placeholders.step_title")}
+                placeholder="Ex: Introdução / Exibição / Discussão"
               />
             </div>
             <div className="form-group w-small">
-              <label id="label-input">{t("planner.step_time")}</label>
+              <label id="label-input"><T>Tempo (min)</T></label>
               <input
                 id="text-input"
                 style={{ textAlign: 'center' }}
@@ -35,13 +33,13 @@ const MetodologiaForm = memo(({ metodologia, onStructChange }) => {
                 onChange={(e) =>
                   onStructChange(index, "duracao", e.target.value)
                 }
-                placeholder={t("planner.placeholders.step_time")}
+                placeholder="Ex: 20"
               />
             </div>
           </div>
 
           <div className="form-column">
-            <label id="label-input" style={{ marginTop: '0.8rem', marginBottom: '0.8rem', display: 'block' }}>{t("planner.topics")}</label>
+            <label id="label-input" style={{ marginTop: '0.8rem', marginBottom: '0.8rem', display: 'block' }}><T>Tópicos (até 3):</T></label>
             {etapa.topicos.map((topico, tIndex) => (
               <div key={`topico-${index}-${tIndex}`} className="form-row" style={{ marginBottom: '0.5rem' }}>
                 <div className="form-group flex-grow">
@@ -51,7 +49,7 @@ const MetodologiaForm = memo(({ metodologia, onStructChange }) => {
                     onChange={(e) =>
                       onStructChange(index, "topicos", e.target.value, tIndex)
                     }
-                    placeholder={`• ${t("planner.topics").split(' ')[0]} ${tIndex + 1}`}
+                    placeholder={`• Tópico ${tIndex + 1}`}
                     style={{ fontSize: '0.9rem' }}
                   />
                  </div>

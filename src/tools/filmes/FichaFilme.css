@@ -55,13 +55,18 @@
 }
 
 .poster-container {
-  max-width: 8rem;
+  flex-shrink: 0;
+  width: 8rem;
+  min-height: 11rem;
   display: flex;
+  align-items: flex-start;
 }
 
 .poster-container img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  min-height: 11rem;
+  object-fit: cover;
   border-radius: 0.5rem;
 }
 

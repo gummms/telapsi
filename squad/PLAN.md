@@ -23,10 +23,10 @@
 - [x] [3.2] Connect forms to correct owner IDs and Administrator validation, removing hardcoded `ownerId: "admin-default"`.
 - [x] [3.3] Simplify state management within complex forms.
 
-### [4] INTERNATIONALIZATION (i18n)
-- [x] [4.1] **Create Guideline:** Detail how @code should implement `react-i18next` (or similar) across the entire application interface.
-- [x] [4.2] Map and extract all hardcoded Portuguese strings.
-- [x] [4.3] Generate English translation locale files and integrate toggle functionality.
+### [4] DYNAMIC TRANSLATION (Google Cloud API)
+- [x] [4.1] **Create Guideline:** Detail how @code should implement dynamic translation using the Google Cloud Translation API (API key is already in `.env`).
+- [ ] [4.2] **Keep everything as is:** Any change to original content, data, and text is strictly forbidden. The translation must happen dynamically.
+- [ ] [4.3] **Custom UI:** Activate the existing language switch button (PT/EN) to trigger the translation, rather than using the default Google Translate widget.
 
 ### [5] MOBILE REFACTOR & RESPONSIVENESS
 - [x] [5.1] **Create Guideline:** Provide CSS/Tailwind rules for @code to build fluid and responsive views.

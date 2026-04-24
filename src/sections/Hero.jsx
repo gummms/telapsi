@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../components/T";
 import ButtonMain from "../components/ButtonMain.jsx";
 import heroDefault from "../assets/heroimg.jpg";
 import "./Hero.css";
 
 const Hero = () => {
-  const { t } = useTranslation();
   const [heroImg, setHeroImg] = useState(heroDefault);
 
   useEffect(() => {
@@ -27,17 +26,19 @@ const Hero = () => {
         <div className="hero-text">
           <div className="hero-title">
             <h1>
-              {t("hero.title")} <span>{t("hero.title_highlight")}</span>.
+              <T>Use o cinema para ensinar sobre</T> <span><T>esquizofrenia</T></span>.
             </h1>
           </div>
           <div className="hero-paragraph">
-            <p>{t("hero.description")}</p>
+            <p><T>O Telapsi é uma plataforma acadêmica feita para apoiar docentes na criação de aulas com auxílio de filmes.</T></p>
           </div>
           <div className="hero-buttons">
-            <ButtonMain path="#sobre" text={t("hero.about_button")} id="btn-sobre" />
+            <ButtonMain path="#sobre" id="btn-sobre">
+              <T>Sobre o Telapsi</T>
+            </ButtonMain>
           </div>
         </div>
-        <img src={heroImg} alt={t("hero.hero_alt")} />
+        <img src={heroImg} alt="Cena de um filme" />
       </div>
     </section>
   );

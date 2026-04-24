@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../components/T";
 import { db } from "../../services/firebaseConfig";
 import { collection, query, where, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import { useAuth } from "../../context/useAuth";
@@ -14,7 +14,6 @@ import "../Content.css";
 import "../../components/Buttons.css";
 
 const AulasLista = ({ onCreateNew, onEdit }) => {
-  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const isAdmin = currentUser?.isAdmin === true;
 
@@ -46,14 +45,14 @@ const AulasLista = ({ onCreateNew, onEdit }) => {
   const aulasAgrupadas = useMemo(() => {
     const grupos = {};
     aulas.forEach((aula) => {
-      const titulo = aula.titulo || t("lessons.untitled");
+      const titulo = aula.titulo || "Sem Título";
       if (!grupos[titulo]) {
         grupos[titulo] = [];
       }
       grupos[titulo].push(aula);
     });
     return grupos;
-  }, [aulas, t]);
+  }, [aulas]);
 
   const handleDelete = async (items) => {
     try {
@@ -73,15 +72,15 @@ const AulasLista = ({ onCreateNew, onEdit }) => {
     <div className="catalogo-container">
       <header className="tool-header">
         <div className="header-texts">
-          <h1>{t("lessons.title")}</h1>
-          <p>{t("lessons.description")}</p>
+          <h1><T>Planos de aula</T></h1>
+          <p><T>Planos de aula já prontos, utilizando os filmes como guia.</T></p>
         </div>
         {isAdmin && onCreateNew && (
           <ButtonMain onClick={onCreateNew} className="btn" id="btn-add-novo">
             <i>
               <Icones icone="fa-plus" />
             </i>
-            {t("lessons.add_plan")}
+            <T>Adicionar Plano</T>
           </ButtonMain>
         )}
       </header>
@@ -89,7 +88,7 @@ const AulasLista = ({ onCreateNew, onEdit }) => {
       <div className="aula-grid">
         {aulas.length === 0 && (
           <div className="empty-state-box">
-            <p>{t("lessons.no_plans")}</p>
+            <p><T>Você ainda não tem aulas planejadas.</T></p>
           </div>
         )}
 
@@ -114,13 +113,13 @@ const AulasLista = ({ onCreateNew, onEdit }) => {
                     {activeMenu === aula.id && (
                       <div className="admin-dropdown">
                         <ButtonMain onClick={() => { setActiveMenu(null); onEdit(aula); }}>
-                          {t("planner.edit")}
+                          <T>Editar</T>
                         </ButtonMain>
                         <ButtonMain 
                           className="delete-opt" 
                           onClick={() => { setActiveMenu(null); setShowDeleteConfirm(aula); }}
                         >
-                          {t("planner.delete")}
+                          <T>Excluir</T>
                         </ButtonMain>
                       </div>
                     )}
@@ -132,26 +131,26 @@ const AulasLista = ({ onCreateNew, onEdit }) => {
                       {aula.duracao} min
                     </span>
                     <span className="tag" id="tag-publico">
-                      {aula.publico}
+                      <T>{aula.publico}</T>
                     </span>
                   </div>
-                  <h3 className="aula-card-titulo">{aula.titulo}</h3>
+                  <h3 className="aula-card-titulo"><T>{aula.titulo}</T></h3>
                   {aula.filmeTitulo ? (
                     <p className="aula-card-filme">
                       <i className="aula-card-filme-icon">
                         <Icones icone="fa fa-film" />
                       </i>
-                      {aula.filmeTitulo}
+                      <T>{aula.filmeTitulo}</T>
                     </p>
                   ) : (
-                    <p className="aula-card-filme-vazio">{t("lessons.no_movie")}</p>
+                    <p className="aula-card-filme-vazio"><T>Sem filme vinculado</T></p>
                   )}
                   <div className="aula-card-actions">
                     <ButtonMain
                       className="btn-ficha"
                       onClick={() => setSelectedAulaId(aula.id)}
                     >
-                      {t("lessons.view_plan")}
+                      <T>Visualizar Plano</T>
                     </ButtonMain>
                   </div>
                 </div>
@@ -188,21 +187,21 @@ const AulasLista = ({ onCreateNew, onEdit }) => {
                         className="delete-opt" 
                         onClick={() => { setActiveMenu(null); setShowDeleteConfirm(grupoAulas); }}
                       >
-                        {t("planner.confirm_delete_group")}
+                        <T>Excluir Grupo</T>
                       </ButtonMain>
                     </div>
                   )}
                 </div>
               )}
               <div className="aula-info">
-                <h3 className="aula-card-titulo">{titulo}</h3>
+                <h3 className="aula-card-titulo"><T>{titulo}</T></h3>
 
                 {aulaBase.filmeTitulo && (
                   <p className="aula-card-filme">
                     <i className="aula-card-filme-icon">
                       <Icones icone="fa fa-film" />
                     </i>
-                    {aulaBase.filmeTitulo}
+                    <T>{aulaBase.filmeTitulo}</T>
                   </p>
                 )}
 
@@ -210,7 +209,7 @@ const AulasLista = ({ onCreateNew, onEdit }) => {
                   {Object.entries(aulasPorPublico).map(
                     ([publico, variacoes]) => (
                       <div key={publico} className="publico-block">
-                        <h4 className="publico-title">{publico}</h4>
+                        <h4 className="publico-title"><T>{publico}</T></h4>
                         <div className="durations-list">
                           {variacoes
                             .sort(

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../components/T";
 import { db } from "../services/firebaseConfig";
 import { collection, query, getDocs } from "firebase/firestore";
 
@@ -13,7 +13,6 @@ import "../components/Buttons.css";
 import "./Planejamento.css";
 
 const Planejamento = () => {
-  const { t } = useTranslation();
   const [aulas, setAulas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedAulaId, setSelectedAulaId] = useState(null);
@@ -46,9 +45,9 @@ const Planejamento = () => {
   return (
     <section id="planejamento">
       <div className="tool-header-publico">
-        <h2>{t("planning.title")}</h2>
+        <h2><T>Planos de Aula</T></h2>
         <a href="/professor" className="link-completo">
-          <span>{t("planning.view_all")}</span>
+          <span><T>VER TODOS OS PLANOS</T></span>
         </a>
       </div>
       <div className="planejamento">
@@ -58,7 +57,7 @@ const Planejamento = () => {
           <div className="cards-grid-horizontal">
             {aulas.length === 0 ? (
               <div className="empty-state-box">
-                <p>{t("planning.no_plans")}</p>
+                <p><T>Você ainda não tem aulas planejadas.</T></p>
               </div>
             ) : (
               aulas.map((aula) => (
@@ -75,7 +74,7 @@ const Planejamento = () => {
                             : "tag-30"
                         }
                       >
-                        {aula.duracao} {t("planning.duration_suffix")}
+                        {aula.duracao} <T>min</T>
                       </span>
                       <span
                         className="tag"
@@ -87,28 +86,28 @@ const Planejamento = () => {
                             : "tag-profissionais"
                         }
                       >
-                        {aula.publico}
+                        <T>{aula.publico}</T>
                       </span>
                     </div>
 
-                    <h3 className="aula-card-titulo">{aula.titulo}</h3>
+                    <h3 className="aula-card-titulo"><T>{aula.titulo}</T></h3>
 
                     {aula.filmeTitulo ? (
                       <p className="aula-card-filme-public">
                         <i className="aula-card-filme-icon">
                           <Icones icone="fa fa-film" />
                         </i>
-                        {aula.filmeTitulo}
+                        <T>{aula.filmeTitulo}</T>
                       </p>
                     ) : (
-                      <p className="aula-card-filme-vazio">{t("planning.no_movie")}</p>
+                      <p className="aula-card-filme-vazio"><T>Sem filme vinculado</T></p>
                     )}
                     <div className="aula-card-actions">
                       <button
                         className="btn-ficha"
                         onClick={() => setSelectedAulaId(aula.id)}
                       >
-                        {t("planning.view_plan")}
+                        <T>Visualizar Plano</T>
                       </button>
                     </div>
                   </div>

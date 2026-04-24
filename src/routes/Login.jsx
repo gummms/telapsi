@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import T from "../components/T";
 import { useAuth } from "../context/useAuth";
 
 import Icones from "../components/Icones";
@@ -11,7 +11,6 @@ import ButtonMain from "../components/ButtonMain";
 import "./Login.css";
 
 const Login = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const { signInWithGoogle, currentUser } = useAuth();
   const [heroImg, setHeroImg] = useState(heroDefault);
@@ -37,7 +36,7 @@ const Login = () => {
     try {
       await signInWithGoogle();
     } catch (error) {
-      console.error(t("login.error"), error);
+      console.error("Falha no login:", error);
     }
   };
 
@@ -47,8 +46,8 @@ const Login = () => {
         <div className="LoginContainer">
           <div className="LoginCard">
             <div className="LoginInput">
-              <h2>{t("login.title")}</h2>
-              <h3>{t("login.subtitle")}</h3>
+              <h2>Telapsi</h2>
+              <h3><T>Utilize sua conta Google para entrar:</T></h3>
               <div className="LoginButton">
                 <ButtonMain
                 className="btn"
@@ -58,19 +57,19 @@ const Login = () => {
                   <i>
                     <Icones icone={"fa-brands fa-google"} />
                   </i>
-                  {t("login.google_button")}
+                  <T>Entrar com Google</T>
                 </ButtonMain>
               </div>
             </div>
 
-            <img src={heroImg} alt={t("login.hero_alt")} />
+            <img src={heroImg} alt="Cena do filme Uma Mente Brilhante" />
           </div>
           <div className="BackBtn">
             <ButtonMain path="/">
               <i>
                 <Icones icone={"fa-chevron-left"} />
               </i>
-              <p>{t("login.back_home")}</p>
+              <p><T>Voltar para o site</T></p>
             </ButtonMain>
           </div>
         </div>

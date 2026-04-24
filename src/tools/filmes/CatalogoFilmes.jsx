@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../components/T";
+import { useLanguage } from "../../context/LanguageContext";
 import { db } from "../../services/firebaseConfig";
 import { collection, query, orderBy, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import { useAuth } from "../../context/useAuth";
@@ -14,7 +15,8 @@ import "../Content.css";
 import "../../components/Buttons.css";
 
 const CatalogoFilmes = ({ onAddNew, onEdit }) => {
-  const { t } = useTranslation();
+  const { language } = useLanguage();
+  const cleanGenre = (g) => g ? g.replace(/^\/+|\/+$/g, "").trim() : "";
   const { currentUser } = useAuth();
   const isAdmin = currentUser?.isAdmin === true;
 
@@ -56,22 +58,22 @@ const CatalogoFilmes = ({ onAddNew, onEdit }) => {
     <div className="catalogo-container">
       <header className="tool-header">
         <div className="header-texts">
-          <h1>{t("guides.title")}</h1>
-          <p>{t("guides.description")}</p>
+          <h1><T>Guias didáticos</T></h1>
+          <p><T>Guias didáticos que sobre como utilizar filmes na criação de aulas.</T></p>
         </div>
         {isAdmin && onAddNew && (
           <ButtonMain onClick={onAddNew} className="btn" id="btn-add-novo">
             <i>
               <Icones icone="fa-plus" />
             </i>
-            {t("guides.add_movie")}
+            <T>Adicionar Filme</T>
           </ButtonMain>
         )}
       </header>
 
       <div className="filmes-grid">
         {filmesFiltrados.length === 0 ? (
-          <p>{t("guides.no_movies")}</p>
+          <p><T>Nenhum filme encontrado.</T></p>
         ) : (
           filmesFiltrados.map((filme) => (
             <div key={filme.id} className="filme-card">
@@ -91,13 +93,13 @@ const CatalogoFilmes = ({ onAddNew, onEdit }) => {
                   {activeMenu === filme.id && (
                     <div className="admin-dropdown">
                       <ButtonMain onClick={() => { setActiveMenu(null); onEdit(filme); }}>
-                        {t("guides.edit")}
+                        <T>Editar</T>
                       </ButtonMain>
                       <ButtonMain 
                         className="delete-opt" 
                         onClick={() => { setActiveMenu(null); setShowDeleteConfirm(filme); }}
                       >
-                        {t("guides.delete")}
+                        <T>Excluir</T>
                       </ButtonMain>
                     </div>
                   )}
@@ -107,22 +109,22 @@ const CatalogoFilmes = ({ onAddNew, onEdit }) => {
                 {filme.urlCapa ? (
                   <img src={filme.urlCapa} alt={filme.titulo} />
                 ) : (
-                  <div className="capa-placeholder">{t("guides.no_cover")}</div>
+                  <div className="capa-placeholder"><T>Sem capa!</T></div>
                 )}
               </div>
 
               <div className="filme-info">
-                <h3>{filme.titulo}</h3>
+                <h3>{language !== "pt" && filme.tituloOriginal ? filme.tituloOriginal : filme.titulo}</h3>
                 <p className="filme-meta">
-                  {filme.ano} • {filme.genero1}
-                  {filme.genero2} • {filme.duracao}min • {filme.pais}
+                  {filme.ano} • <T>{cleanGenre(filme.genero1)}</T>
+                  {filme.genero2 && cleanGenre(filme.genero2) && <> • <T>{cleanGenre(filme.genero2)}</T></>} • {filme.duracao}min • <T>{filme.pais}</T>
                 </p>
 
                 <div className="filme-tags">
                   {filme.palavrasChave &&
                     filme.palavrasChave.map((tag) => (
                       <span key={tag} className="tag">
-                        {tag}
+                        <T>{tag}</T>
                       </span>
                     ))}
                 </div>
@@ -131,7 +133,7 @@ const CatalogoFilmes = ({ onAddNew, onEdit }) => {
                   className="btn-ficha"
                   onClick={() => setSelectedFilmeId(filme.id)}
                 >
-                  {t("guides.full_guide")}
+                  <T>Guia completo</T>
                 </ButtonMain>
               </div>
             </div>

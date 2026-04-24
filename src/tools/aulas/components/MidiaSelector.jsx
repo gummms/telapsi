@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../../components/T";
 
 const MidiaSelector = memo(
   ({
@@ -10,16 +10,14 @@ const MidiaSelector = memo(
     cenasSelecionadas,
     onToggleCena,
   }) => {
-    const { t } = useTranslation();
-
     return (
     <section className="form-section">
-      <h3>{t("planner.media")}</h3>
+      <h3><T>Mídia Associada (Multi-filmes)</T></h3>
 
       {/* Resumo do que já foi selecionado */}
       {cenasSelecionadas.length > 0 && (
         <div className="cenas-resumo">
-          <h4>{t("planner.selected_scenes")}</h4>
+          <h4><T>Cenas já selecionadas para a aula:</T></h4>
           <ul>
             {cenasSelecionadas.map((c) => (
               <li key={`${c.filmeId}-${c.cenaId}`}>
@@ -31,7 +29,7 @@ const MidiaSelector = memo(
                   className="btn-remove-lite"
                   onClick={() => onToggleCena(c.filmeId, c.cenaId)}
                 >
-                  {t("planner.remove")}
+                  <T>Remover</T>
                 </button>
               </li>
             ))}
@@ -41,14 +39,14 @@ const MidiaSelector = memo(
 
       <div className="form-row">
         <div className="form-group flex-grow">
-          <label id="label-input">{t("planner.add_scenes_from")}</label>
+          <label id="label-input"><T>Adicionar cenas do filme:</T></label>
           <select
             id="select-input"
             value={selectedFilmeId}
             onChange={(e) => onSelectFilme(e.target.value)}
           >
             <option value="">
-              {t("planner.select_movie_placeholder")}
+              Selecione um filme para visualizar cenas...
             </option>
             {filmes.map((f) => (
               <option key={f.id} value={f.id}>
@@ -62,12 +60,12 @@ const MidiaSelector = memo(
       {selectedFilmeId && (
         <div className="cenas-selection-box">
           <h4>
-            {t("planner.available_scenes_in")}{" "}
+            <T>Cenas disponíveis em:</T>{" "}
             {filmes.find((f) => f.id === selectedFilmeId)?.titulo}
           </h4>
           {cenasDoFilmeAtual.length === 0 ? (
             <p className="text-muted">
-              {t("planner.no_scenes")}
+              <T>Este filme não possui cenas cadastradas.</T>
             </p>
           ) : (
             <div className="cenas-grid-select">

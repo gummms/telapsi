@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../components/T";
 import { useToast } from "../../context/ToastContext";
 import Icones from "../../components/Icones";
 import TagInput from "../../components/TagInput";
@@ -74,7 +74,6 @@ const TEMAS_OPTIONS = [
 ];
 
 const SceneForm = ({ onAddCena }) => {
-  const { t } = useTranslation();
   const { addToast } = useToast();
   const [mostrarFormCena, setMostrarFormCena] = useState(true);
 
@@ -131,7 +130,7 @@ const SceneForm = ({ onAddCena }) => {
 
   const handleAddClick = () => {
     if (!novaCena.titulo || !novaCena.minutagem) {
-      addToast(t("scene_form.alert_validation"), "error");
+      addToast("Preencha pelo menos Título e Minutagem da cena.", "error");
       return;
     }
 
@@ -187,7 +186,7 @@ const SceneForm = ({ onAddCena }) => {
           mostrarFormCena ? "accordion-header" : "accordion-header-closed"
         }
       >
-        <h3>{t("scene_form.new_scene")}</h3>
+        <h3><T>Nova cena</T></h3>
         <span>
           <i>
             <Icones
@@ -201,36 +200,36 @@ const SceneForm = ({ onAddCena }) => {
         <div className="nova-cena-content">
           <div className="row">
             <div className="form-group flex-grow">
-              <label id="label-input">{t("movie_registration.title")}</label>
+              <label id="label-input"><T>Título</T></label>
               <input
                 id="text-input"
                 name="titulo"
                 value={novaCena.titulo}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.title_placeholder")}
+                placeholder="Dê um título à essa cena"
               />
             </div>
             <div className="form-group w-small">
-              <label id="label-input">{t("movie_registration.duration")}</label>
+              <label id="label-input"><T>Duração</T></label>
               <input
                 id="number-input"
                 name="minutagem"
                 value={novaCena.minutagem}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.duration_placeholder")}
+                placeholder="hh:mm:ss"
               />
             </div>
           </div>
 
           <div className="row">
             <div className="form-group flex-grow">
-              <label id="label-input">{t("scene_form.description")}</label>
+              <label id="label-input"><T>Descrição</T></label>
               <textarea
                 id="text-area-input"
                 name="descricao"
                 value={novaCena.descricao}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.description_placeholder")}
+                placeholder="Breve descrição da cena"
               ></textarea>
             </div>
           </div>
@@ -238,7 +237,7 @@ const SceneForm = ({ onAddCena }) => {
           <div className="row">
             <div className="form-group flex-grow">
               <TagInput
-                label={t("scene_form.related_themes")}
+                label="Temas relacionados"
                 tags={novaCena.temas}
                 setTags={handleTemasChange}
                 options={TEMAS_OPTIONS}
@@ -248,26 +247,26 @@ const SceneForm = ({ onAddCena }) => {
 
           <div className="row">
             <div className="form-group flex-grow">
-              <label id="label-input">{t("scene_form.clinical_correlation")}</label>
+              <label id="label-input"><T>Correlação clínica</T></label>
               <textarea
                 id="text-area-input"
                 name="correlacaoClinica"
                 value={novaCena.correlacaoClinica}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.clinical_correlation_placeholder")}
+                placeholder="Escreva sobre a relação entre a cena e situações reais"
               ></textarea>
             </div>
           </div>
 
           <div className="row">
             <div className="form-group flex-grow">
-              <label id="label-input">{t("scene_form.debate_questions")}</label>
+              <label id="label-input"><T>Questões para debate</T></label>
               <input
                 id="text-input"
                 name="questao1"
                 value={novaCena.questao1}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.q1")}
+                placeholder="01. Primeira questão"
                 className="mb-2"
               />
               <input
@@ -275,7 +274,7 @@ const SceneForm = ({ onAddCena }) => {
                 name="questao2"
                 value={novaCena.questao2}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.q2")}
+                placeholder="02. Segunda questão"
                 className="mb-2"
               />
               <input
@@ -283,7 +282,7 @@ const SceneForm = ({ onAddCena }) => {
                 name="questao3"
                 value={novaCena.questao3}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.q3")}
+                placeholder="03. Terceira questão"
                 className="mb-2"
               />
               <input
@@ -291,15 +290,15 @@ const SceneForm = ({ onAddCena }) => {
                 name="questao4"
                 value={novaCena.questao4}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.q4")}
+                placeholder="04. Quarta questão"
               />
             </div>
           </div>
 
-          <label id="label-input">{t("scene_form.comparison_points")}</label>
+          <label id="label-input"><T>Pontos de comparação com a clínica</T></label>
           <div className="row">
             <div className="form-group flex-grow">
-              <label id="sub-label">{t("scene_form.in_movie")}</label>
+              <label id="sub-label"><T>No filme:</T></label>
               <textarea
                 id="text-area-input"
                 name="compNoFilme"
@@ -309,7 +308,7 @@ const SceneForm = ({ onAddCena }) => {
               ></textarea>
             </div>
             <div className="form-group flex-grow">
-              <label id="sub-label">{t("scene_form.in_clinic")}</label>
+              <label id="sub-label"><T>Na clínica:</T></label>
               <textarea
                 id="text-area-input"
                 name="compNaClinica"
@@ -321,7 +320,7 @@ const SceneForm = ({ onAddCena }) => {
           </div>
           <div className="row">
             <div className="form-group flex-grow">
-              <label id="sub-label">{t("scene_form.conceptual_aspect")}</label>
+              <label id="sub-label"><T>Aspecto conceitual:</T></label>
               <textarea
                 id="text-area-input"
                 name="compConceitual"
@@ -331,7 +330,7 @@ const SceneForm = ({ onAddCena }) => {
               ></textarea>
             </div>
             <div className="form-group flex-grow">
-              <label id="sub-label">{t("scene_form.narrative_observation")}</label>
+              <label id="sub-label"><T>Observação narrativa x clínica real:</T></label>
               <textarea
                 id="text-area-input"
                 name="compNarrativa"
@@ -344,13 +343,13 @@ const SceneForm = ({ onAddCena }) => {
 
           <div className="row">
             <div className="form-group flex-grow">
-              <label id="label-input">{t("scene_form.teaching_tip")}</label>
+              <label id="label-input"><T>Dica de aula</T></label>
               <textarea
                 id="text-area-input"
                 name="dicaAula"
                 value={novaCena.dicaAula}
                 onChange={handleCenaChange}
-                placeholder={t("scene_form.teaching_tip_placeholder")}
+                placeholder="Dicas para conduzir aulas..."
               ></textarea>
             </div>
           </div>
@@ -368,7 +367,7 @@ const SceneForm = ({ onAddCena }) => {
             <i>
               <Icones icone="fa-plus" />
             </i>
-            {t("scene_form.add_scene")}
+            <T>Adicionar cena</T>
           </ButtonMain>
         </div>
       )}

@@ -1,11 +1,12 @@
+import T from "../components/T";
 import "./Footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© Telapsi — Projeto acadêmico.</p>
+      <p><T>© Telapsi — Projeto acadêmico.</T></p>
       <p id="disclaimer-text">
-        AVISO LEGAL – DIREITOS AUTORAIS: A plataforma TELAPSI não hospeda,
+        <T>AVISO LEGAL – DIREITOS AUTORAIS: A plataforma TELAPSI não hospeda,
         reproduz, transmite, disponibiliza para download ou compartilha trechos
         de obras audiovisuais protegidas por direitos autorais, incluindo
         filmes, séries, documentários ou quaisquer conteúdos cinematográficos.
@@ -22,7 +23,7 @@ const Footer = () => {
         incluindo o uso de cópias legalmente adquiridas e a observância das
         limitações previstas na legislação de direitos autorais. A
         responsabilidade pelo acesso ao conteúdo audiovisual original é
-        exclusivamente do usuário.
+        exclusivamente do usuário.</T>
       </p>
     </footer>
   );

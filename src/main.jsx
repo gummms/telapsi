@@ -10,8 +10,8 @@ import Login from "./routes/Login.jsx";
 import Professor from "./routes/Professor.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
+import { LanguageProvider } from "./context/LanguageContext.jsx";
 import "./index.css";
-import "./i18n/config";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +39,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <LanguageProvider>
+      <RouterProvider router={router} />
+    </LanguageProvider>
   </StrictMode>
 );

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../components/T";
+import { useLanguage } from "../../context/LanguageContext";
 import { db } from "../../services/firebaseConfig";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import Icones from "../../components/Icones";
@@ -8,7 +9,8 @@ import ButtonMain from "../../components/ButtonMain";
 import "./FichaFilme.css";
 
 const FichaFilme = ({ filmeId, onClose }) => {
-  const { t } = useTranslation();
+  const { language } = useLanguage();
+  const cleanGenre = (g) => g ? g.replace(/^\/+|\/+$/g, "").trim() : "";
   const [filme, setFilme] = useState(null);
   const [cenas, setCenas] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -84,7 +86,7 @@ const FichaFilme = ({ filmeId, onClose }) => {
                 <i>
                   <Icones icone="fa-print" />
                 </i>
-                {t("movie_card.print")}
+                <T>Imprimir / PDF</T>
               </ButtonMain>
               <ButtonMain className="btn-close" onClick={onClose}>
                 <i>
@@ -97,35 +99,35 @@ const FichaFilme = ({ filmeId, onClose }) => {
                 {filme.urlCapa ? (
                   <img src={filme.urlCapa} alt={filme.titulo} />
                 ) : (
-                  <div className="poster-placeholder">{t("movie_card.no_cover")}</div>
+                  <div className="poster-placeholder"><T>Sem imagem</T></div>
                 )}
               </div>
               <div className="header-info">
                 <div className="title-cenas">
-                  <h1>{filme.titulo}</h1>
+                  <h1>{language !== "pt" && (filme.tituloOriginal || filme.titulo_en) ? (filme.tituloOriginal || filme.titulo_en) : (filme.titulo || filme.titulo_pt)}</h1>
                   <div className="scene-counter">
-                    {t("movie_card.total_scenes")}: {cenas.length}
+                    <T>Total de cenas</T>: {cenas.length}
                   </div>
                 </div>
                 <div className="meta-line">
-                  <span>{filme.ano}</span> • <span>{filme.genero1}</span>
-                  <span>{filme.genero2}</span> • <span>{filme.duracao}min</span>{" "}
-                  • <span>{filme.pais}</span>
+                  <span>{filme.ano}</span> • <span><T>{cleanGenre(filme.genero1)}</T></span>
+                  {filme.genero2 && cleanGenre(filme.genero2) && <><span> • </span><span><T>{cleanGenre(filme.genero2)}</T></span></>} • <span>{filme.duracao}min</span>{" "}
+                  • <span><T>{filme.pais}</T></span>
                 </div>
                 <p>
-                  <strong>{t("movie_card.original_title")}:</strong> {filme.tituloOriginal}
+                   <strong><T>Título original</T>:</strong> {filme.tituloOriginal || filme.titulo_en || filme.titulo}
                 </p>
                 <p>
-                  <strong>{t("movie_card.direction")}:</strong> {filme.direcao}
+                   <strong><T>Direção</T>:</strong> <T>{filme.direcao}</T>
                 </p>
                 <p>
-                  <strong>{t("movie_card.cast")}:</strong>{" "}
-                  {filme.elenco && Array.isArray(filme.elenco)
+                   <strong><T>Elenco</T>:</strong>{" "}
+                  <T>{filme.elenco && Array.isArray(filme.elenco)
                     ? filme.elenco.join(", ")
-                    : filme.elenco}
+                    : filme.elenco}</T>
                 </p>
                 <p className="sinopse">
-                  <strong>{t("movie_card.synopsis")}:</strong> {filme.sinopse}
+                   <strong><T>Sinopse</T>:</strong> <T>{filme.sinopse || filme.sinopse_pt || ""}</T>
                 </p>
               </div>
             </div>
@@ -158,29 +160,29 @@ const FichaFilme = ({ filmeId, onClose }) => {
           <div className="cenas-carousel" ref={carouselRef}>
             {cenas.length === 0 ? (
               <p className="sem-cenas">
-                {t("movie_card.no_cenas_yet")}
+                <T>Nenhuma cena cadastrada para este filme ainda.</T>
               </p>
             ) : (
               cenas.map((cena) => (
                 <div key={cena.id} className="cena-slide">
                   <div className="slide-left">
                     <div className="cena-header">
-                      <h2>{cena.titulo}</h2>
+                      <h2><T>{cena.titulo}</T></h2>
                       <span className="time-pill">{cena.minutagem}</span>
                     </div>
 
-                    <p className="cena-descricao">{cena.descricao}</p>
+                    <p className="cena-descricao"><T>{cena.descricao}</T></p>
                     <div className="block-amarelo">
-                      <h4>{t("movie_card.teaching_tips")}</h4>
-                      <p>{cena.dicaAula}</p>
+                      <h4><T>Dicas de aula</T></h4>
+                      <p><T>{cena.dicaAula}</T></p>
                     </div>
                     <div className="block-azul">
-                      <h4>{t("movie_card.related_themes")}</h4>
+                      <h4><T>Temas relacionados</T></h4>
                       <div className="tags-cloud">
                         {Array.isArray(cena.temasRelacionados) ? (
                           cena.temasRelacionados.map((tema, index) => (
                             <span key={`tema-${index}`} className="tema-pill">
-                              {tema}
+                              <T>{tema}</T>
                             </span>
                           ))
                         ) : typeof cena.temasRelacionados === "string" ? (
@@ -188,22 +190,22 @@ const FichaFilme = ({ filmeId, onClose }) => {
                             .split(",")
                             .map((tema, index) => (
                               <span key={`tema-split-${index}`} className="tema-pill">
-                                {tema.trim()}
+                                <T>{tema.trim()}</T>
                               </span>
                             ))
                         ) : (
-                          <span className="tema-pill">{t("movie_card.no_themes")}</span>
+                          <span className="tema-pill"><T>Sem temas</T></span>
                         )}
                       </div>
                     </div>
                     <div className="cena-keywords">
                       <div className="block-cinza">
-                        <h4>{t("movie_card.keywords")}</h4>
+                        <h4><T>Palavras-chave</T></h4>
                         <div className="keywords-cloud">
                           {cena.palavrasChave &&
                             cena.palavrasChave.map((kw, i) => (
                               <span key={i} className="keyword-pill">
-                                {kw}{" "}
+                                <T>{kw}</T>{" "}
                               </span>
                             ))}
                         </div>
@@ -213,41 +215,41 @@ const FichaFilme = ({ filmeId, onClose }) => {
                   <div className="slide-right">
                     <div className="cena-grid-details">
                       <div className="detail-box">
-                        <h3>{t("movie_card.clinical_correlation")}</h3>
-                        <p>{cena.correlacaoClinica}</p>
+                        <h3><T>Correlação clínica</T></h3>
+                        <p><T>{cena.correlacaoClinica}</T></p>
                       </div>
 
                       <div className="detail-box">
-                        <h3>{t("movie_card.debate_questions")}</h3>
+                        <h3><T>Questões para debate</T></h3>
                         <ul>
                           {cena.questoesDebate &&
                             cena.questoesDebate.map((q, i) => (
                               <li key={i}>
-                                {i + 1}. {q}
+                                {i + 1}. <T>{q}</T>
                               </li>
                             ))}
                         </ul>
                       </div>
 
                       <div className="detail-box">
-                        <h3>{t("movie_card.comparison_points")}</h3>
+                        <h3><T>Pontos de comparação</T></h3>
 
                         <>
                           <p>
-                            <strong>{t("movie_card.in_movie")}:</strong>{" "}
-                            {cena.pontosComparacao.noFilme}
+                            <strong><T>No filme</T>:</strong>{" "}
+                            <T>{cena.pontosComparacao.noFilme}</T>
                           </p>
                           <p>
-                            <strong>{t("movie_card.in_clinic")}:</strong>{" "}
-                            {cena.pontosComparacao.naClinica}
+                            <strong><T>Na clínica</T>:</strong>{" "}
+                            <T>{cena.pontosComparacao.naClinica}</T>
                           </p>
                           <p>
-                            <strong>{t("movie_card.conceptual_aspect")}:</strong>{" "}
-                            {cena.pontosComparacao.aspectoConceitual}
+                            <strong><T>Aspecto conceitual</T>:</strong>{" "}
+                            <T>{cena.pontosComparacao.aspectoConceitual}</T>
                           </p>
                           <p>
-                            <strong>{t("movie_card.narrative_observation")}:</strong>{" "}
-                            {cena.pontosComparacao.observacaoNarrativa}
+                            <strong><T>Observação narrativa</T>:</strong>{" "}
+                            <T>{cena.pontosComparacao.observacaoNarrativa}</T>
                           </p>
                         </>
                       </div>

@@ -1,14 +1,12 @@
 import { memo } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../../components/T";
 
 const ObjetivosForm = memo(({ objetivos, onArrayChange }) => {
-  const { t } = useTranslation();
-
   return (
     <section className="form-section">
-      <h3>{t("planner.learning_objectives")}</h3>
+      <h3><T>Objetivos de Aprendizagem</T></h3>
       <div className="form-column">
-        <label id="label-input" style={{ marginBottom: '1rem', display: 'block' }}>{t("planner.list_objectives")}</label>
+        <label id="label-input" style={{ marginBottom: '1rem', display: 'block' }}><T>Liste até 5 objetivos gerais:</T></label>
         {objetivos.map((obj, index) => (
           <div key={`objetivo-${index}`} className="form-row" style={{ marginBottom: '0.8rem' }}>
             <div className="form-group flex-grow">
@@ -16,7 +14,7 @@ const ObjetivosForm = memo(({ objetivos, onArrayChange }) => {
                 id="text-input"
                 value={obj}
                 onChange={(e) => onArrayChange("objetivos", index, e.target.value)}
-                placeholder={`${t("planner.objective_placeholder")} ${index + 1}`}
+                placeholder={`Objetivo ${index + 1}`}
               />
             </div>
           </div>

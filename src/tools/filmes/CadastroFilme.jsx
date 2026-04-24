@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import T from "../../components/T";
 import { db } from "../../services/firebaseConfig";
 import { collection, getDocs, doc, setDoc, updateDoc } from "firebase/firestore";
 import { useAuth } from "../../context/useAuth";
@@ -15,7 +15,6 @@ import "../Content.css";
 import "../../components/Buttons.css";
 
 const CadastroFilme = ({ onBack, editingData }) => {
-  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const { addToast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -72,7 +71,7 @@ const CadastroFilme = ({ onBack, editingData }) => {
 
   const handleSalvarFilmeCompleto = async () => {
     if (!filme.titulo) {
-      addToast(t("movie_registration.alert_title"), "error");
+      addToast("O título do filme é obrigatório.", "error");
       return;
     }
 
@@ -102,15 +101,15 @@ const CadastroFilme = ({ onBack, editingData }) => {
         
         // This is a simplified update. A robust one would handle scenes sync.
         // For simplicity, we'll just allow editing the movie info here.
-        addToast(t("movie_registration.alert_success"), "success");
+        addToast("Filme e cenas cadastrados com sucesso!", "success");
       } else {
         await salvarFilmeCompleto(filme, cenasAdicionadas, currentUser.uid);
-        addToast(t("movie_registration.alert_success"), "success");
+        addToast("Filme e cenas cadastrados com sucesso!", "success");
       }
       onBack();
     } catch (error) {
       console.error("Erro ao salvar:", error);
-      addToast(t("movie_registration.alert_error"), "error");
+      addToast("Erro ao salvar filme. Tente novamente.", "error");
     } finally {
       setLoading(false);
     }
@@ -119,73 +118,73 @@ const CadastroFilme = ({ onBack, editingData }) => {
   return (
     <div className="cadastro-container">
       <header className="cadastro-header">
-        <h2>{t("movie_registration.main_title")}</h2>
-        <p>{t("movie_registration.description")}</p>
+        <h2><T>Adicionar novo filme</T></h2>
+        <p><T>Cadastre filmes e cenas para utilizar em futuras aulas</T></p>
       </header>
 
       <section className="form-section">
-        <h3>{t("movie_registration.general_info")}</h3>
+        <h3><T>Informações Gerais</T></h3>
         <div className="form-row">
           <div className="form-group flex-grow">
-            <label id="label-input">{t("movie_registration.title")}</label>
+            <label id="label-input"><T>Título</T></label>
             <input
               id="text-input"
               name="titulo"
               value={filme.titulo}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.title")}
+              placeholder="Título do filme (português)"
             />
           </div>
           <div className="form-group flex-grow">
-            <label id="label-input">{t("movie_registration.original_title")}</label>
+            <label id="label-input"><T>Título original</T></label>
             <input
               id="text-input"
               name="tituloOriginal"
               value={filme.tituloOriginal}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.original_title")}
+              placeholder="Título original"
             />
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group flex-grow">
-            <label id="label-input">{t("movie_registration.country")}</label>
+            <label id="label-input"><T>País</T></label>
             <input
               id="text-input"
               name="pais"
               value={filme.pais}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.country")}
+              placeholder="Ex: Brasil"
             />
           </div>
           <div className="form-group w-small">
-            <label id="label-input">{t("movie_registration.year")}</label>
+            <label id="label-input"><T>Ano</T></label>
             <input
               id="number-input"
               name="ano"
               type="number"
               value={filme.ano}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.year")}
+              placeholder="aaaa"
             />
           </div>
           <div className="form-group w-small">
-            <label id="label-input">{t("movie_registration.duration")}</label>
+            <label id="label-input"><T>Duração (min.)</T></label>
             <input
               id="number-input"
               name="duracao"
               type="number"
               value={filme.duracao}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.duration")}
+              placeholder="000"
             />
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group flex-grow">
-            <label id="label-input">{t("movie_registration.genre")}</label>
+            <label id="label-input"><T>Gênero</T></label>
             <select
               id="select-input"
               value={filme.genero1}
@@ -193,51 +192,49 @@ const CadastroFilme = ({ onBack, editingData }) => {
               name="genero1"
               onChange={handleFilmeChange}
             >
-              <option value="" disabled hidden>
-                {t("movie_registration.genre_placeholder")}
-              </option>
-              <option value="Drama">{t("movie_registration.drama")}</option>
-              <option value="Biografia">{t("movie_registration.biography")}</option>
-              <option value="Ação">{t("movie_registration.action")}</option>
-              <option value="Suspense">{t("movie_registration.thriller")}</option>
-              <option value="Animação">{t("movie_registration.animation")}</option>
-              <option value="Comédia">{t("movie_registration.comedy")}</option>
+              <option value="" disabled hidden>Gênero do filme</option>
+              <option value="Drama">Drama</option>
+              <option value="Biografia">Biografia</option>
+              <option value="Ação">Ação</option>
+              <option value="Suspense">Suspense</option>
+              <option value="Animação">Animação</option>
+              <option value="Comédia">Comédia</option>
             </select>
           </div>
           <div className="form-group flex-grow">
-            <label id="label-input">{t("movie_registration.direction")}</label>
+            <label id="label-input"><T>Direção</T></label>
             <input
               id="text-input"
               name="direcao"
               value={filme.direcao}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.direction")}
+              placeholder="Diretor ou diretora"
             />
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group flex-grow">
-            <label id="label-input">{t("movie_registration.cast")}</label>
+            <label id="label-input"><T>Elenco</T></label>
             <input
               id="text-input"
               name="elenco"
               value={filme.elenco}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.cast")}
+              placeholder="Principais atores"
             />
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group flex-grow">
-            <label id="label-input">{t("movie_registration.synopsis")}</label>
+            <label id="label-input"><T>Sinopse</T></label>
             <textarea
               id="text-area-input"
               name="sinopse"
               value={filme.sinopse}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.synopsis")}
+              placeholder="Um pequeno resumo do filme"
               rows="3"
             ></textarea>
           </div>
@@ -245,23 +242,23 @@ const CadastroFilme = ({ onBack, editingData }) => {
 
         <div className="form-row">
           <div className="form-group flex-grow">
-            <label id="label-input">{t("movie_registration.cover_url")}</label>
+            <label id="label-input"><T>URL da imagem de capa</T></label>
             <input
               id="text-input"
               name="urlCapa"
               value={filme.urlCapa}
               onChange={handleFilmeChange}
-              placeholder={t("movie_registration.placeholders.cover_url")}
+              placeholder="https://exemplo.com/imagem.jpg"
             />
           </div>
         </div>
       </section>
 
       <section className="form-section cenas-section">
-        <h3>{t("movie_registration.scenes")}</h3>
+        <h3><T>Cenas</T></h3>
         {cenasAdicionadas.length === 0 && (
           <div className="empty-state">
-            <p>{t("movie_registration.no_scenes")}</p>
+            <p><T>Nenhuma cena adicionada ainda.</T></p>
           </div>
         )}
 
@@ -300,12 +297,12 @@ const CadastroFilme = ({ onBack, editingData }) => {
               <i className="fa-spin" style={{ marginRight: '8px' }}>
                 <Icones icone="fa-spinner" />
               </i>
-              {t("movie_registration.saving")}
+              <T>Salvando...</T>
             </>
           ) : isEditing ? (
             "EDITAR"
           ) : (
-            t("movie_registration.add_full_movie")
+            <T>Adicionar Filme Completo</T>
           )}
         </ButtonMain>
       </div>
